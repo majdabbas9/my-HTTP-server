@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <button onclick="send()">Send POST</button>
-    <label id="result"></label>
 
-    <script>
-      function send() {
-        fetch("http://localhost:4221/eval", {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain"
-          },
-          body: "3+5"
-        })
+<body>
+  <input type="text" id="expression" placeholder="Enter math expression (e.g. 3+5)">
+  <button onclick="send()">Calculate</button>
+  <br><br>
+  <label id="result"></label>
+
+  <script>
+    function send() {
+      const expression = document.getElementById("expression").value;
+      fetch("http://localhost:8000/eval", {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain"
+        },
+        body: expression
+      })
         .then(response => response.text())
         .then(data => {
           document.getElementById("result").textContent = "Result: " + data;
@@ -20,7 +24,8 @@
         .catch(error => {
           document.getElementById("result").textContent = "Error: " + error;
         });
-      }
-    </script>
-  </body>
+    }
+  </script>
+</body>
+
 </html>
