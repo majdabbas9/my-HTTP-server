@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <button onclick="send()">Send POST</button>
+    <label id="result"></label>
+
+    <script>
+      function send() {
+        fetch("http://localhost:4221/eval", {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain"
+          },
+          body: "3+5"
+        })
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("result").textContent = "Result: " + data;
+        })
+        .catch(error => {
+          document.getElementById("result").textContent = "Error: " + error;
+        });
+      }
+    </script>
+  </body>
+</html>
